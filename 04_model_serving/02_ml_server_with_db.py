@@ -14,14 +14,25 @@ logging.basicConfig()
 logging.getLogger("sqlalchemy.engine").setLevel(logging.INFO)
 
 # 환경 변수 로드
+load_dotenv()
+DATABASE_URL = os.getenv('DATABASE_URL')
 
 # 머신러닝 모델 로드
+model = joblib.load("iris_model.joblib")
 
 # FastAPI 애플리케이션 인스턴스 생성
+app = FastAPI()
 
 # 데이터베이스 연결 설정
+from sqlalchemy.orm import sessionmaker, Session
+from sqlalchemy import create_engine
+
+engine = create_engine(DATABASE_URL)
+
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 # 테이블 생성
+Base.metadata.create_all(bind=engine)
 
 # 입력 데이터 스키마 정의
 class IrisInput(BaseModel):
@@ -40,3 +51,8 @@ def get_db():
 
 # 예측 및 데이터베이스 저장 엔드포인트 정의
 @app.post("/predict")
+def predict(data: IrisInput):
+    features = np.array([[data.sepal_length, data.sepal_width,
+            data.petal_length, data.petal_width]])
+    prediction = model.predict(features)
+    return int(prediction[0]) # json 객체로 전달할 수 있게 기본 자료형으로 변환 
