@@ -12,5 +12,5 @@ Base.metadata.create_all(bind=engine)
 app = FastAPI() 
 
 # 라우터 등록  # /auths 를 prefix로 달도록 
-app.include_router(auths.auth_router)
-app.include_router(users.user_router, prefix="/users", tags=["user info"])
+app.include_router(auths.auth_router,  prefix="/auth",tags=["authorization info"])
+app.include_router(users.user_router, prefix="/user", tags=["user info"])

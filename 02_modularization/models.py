@@ -13,3 +13,5 @@ class User(Base):
     name = Column(String, index=True)
     email = Column(String, unique=True, index=True)
     role = Column(String, default="user")  # 사용자 역할 (기본값: user)
+
+

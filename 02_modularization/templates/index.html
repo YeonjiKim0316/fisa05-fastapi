@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FastAPI Users</title>
+</head>
+<body>
+
+    <h1>FastAPI 사용자 관리 시스템</h1>
+
+    {% if error_message %}
+        <p>{{ error_message }}</p>
+    {% endif %}
+    {% if success_message %}
+        <p>{{ success_message }}</p>
+    {% endif %}
+
+    <hr>
+
+    <h2>사용자 생성</h2>
+    <form action="/users/" method="post">
+        <label for="name">이름:</label>
+        <input type="text" id="name" name="name" required><br>
+        <label for="email">이메일:</label>
+        <input type="email" id="email" name="email" required><br>
+        <label for="role">역할 (user/admin):</label>
+        <input type="text" id="role" name="role" value="user"><br>
+        <button type="submit">사용자 생성</button>
+    </form>
+
+    <hr>
+
+    <h2>사용자 목록</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>이름</th>
+                <th>이메일</th>
+                <th>역할</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+            <tr>
+                <td>{{ user.id }}</td>
+                <td>{{ user.name }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.role }}</td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="4">사용자가 없습니다.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <hr>
+
+    <h2>페이지 이동</h2>
+    <p>
+        <a href="/profile?token=alice">Alice 프로필 보기 (일반 사용자)</a><br>
+        <a href="/profile?token=bob">Bob 프로필 보기 (존재하지 않는 사용자)</a><br>
+        <a href="/admin?token=jjangu2">Admin 페이지 보기 (관리자)</a><br>
+        <a href="/admin?token=alice">Alice로 Admin 페이지 보기 (권한 없음)</a>
+    </p>
+
+</body>
+</html>

@@ -6,3 +6,5 @@ numpy
 scikit-learn
 uvicorn
 python-multipart # For using Form objects 
+joblib
+sqlalchemy

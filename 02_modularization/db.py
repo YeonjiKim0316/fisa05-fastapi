@@ -7,7 +7,7 @@ DATABASE_URL = "sqlite:///./test.db"  # SQLite 데이터베이스 URL
 # SQLAlchemy 엔진 생성
 # SQLite 데이터베이스를 사용하며, check_same_thread=False로 설정하여 멀티스레드에서 사용할 수 있도록 함
 # SQLite는 기본적으로 멀티스레드에서 사용할 수 없으므로, FastAPI에서 사용하기 위해 이 설정으로 해결
-engine = create_engine(DATABASE_URL, connect_args={"check_same_thread": False})
+engine = create_engine(DATABASE_URL)
 
 # 세션은 데이터베이스의 작업(쿼리 실행, 트랜잭션 등)을 수행하는 단위
 # 세션을 사용하여 데이터베이스와 상호작용
