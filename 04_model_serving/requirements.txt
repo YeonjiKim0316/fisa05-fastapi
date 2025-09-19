@@ -1,0 +1,8 @@
+fastapi
+pymysql
+alembic
+jinja2
+numpy
+scikit-learn
+uvicorn
+python-multipart # For using Form objects 

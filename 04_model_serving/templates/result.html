@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}Iris Prediction Result{% endblock %}
+
+{% block content %}
+    <h1 class="text-center">Iris Prediction Result</h1>
+    <div class="mt-4">
+        <h2>Your Input:</h2>
+        <ul class="list-group">
+            <li class="list-group-item">Sepal Length: {{ sepal_length }}</li>
+            <li class="list-group-item">Sepal Width: {{ sepal_width }}</li>
+            <li class="list-group-item">Petal Length: {{ petal_length }}</li>
+            <li class="list-group-item">Petal Width: {{ petal_width }}</li>
+        </ul>
+    </div>
+    <div class="mt-4">
+        <h2>Prediction:</h2>
+        <p class="alert alert-info">The predicted class is: <strong>{{ prediction }}</strong></p>
+    </div>
+    <a href="/" class="btn btn-secondary mt-3">Go back to input form</a>
+{% endblock %}
