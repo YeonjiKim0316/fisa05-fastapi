@@ -51,8 +51,23 @@ def get_db():
 
 # 예측 및 데이터베이스 저장 엔드포인트 정의
 @app.post("/predict")
-def predict(data: IrisInput):
-    features = np.array([[data.sepal_length, data.sepal_width,
-            data.petal_length, data.petal_width]])
-    prediction = model.predict(features)
-    return int(prediction[0]) # json 객체로 전달할 수 있게 기본 자료형으로 변환 
+def predict(data: IrisInput, db: Session = Depends(get_db)):
+    try:
+        features = np.array([[data.sepal_length, data.sepal_width,
+                data.petal_length, data.petal_width]])
+        prediction = model.predict(features)
+
+        new_pred = IrisPrediction(
+            sepal_length=data.sepal_length, 
+            sepal_width=data.sepal_width,
+            petal_length=data.petal_length, 
+            petal_width=data.petal_width,
+            prediction=prediction
+        )
+
+        db.add(new_pred)
+        db.commit()
+        db.refresh(new_pred)
+        return new_pred # json 객체로 전달할 수 있게 기본 자료형으로 변환 
+    except:
+        raise HTTPException(500, "server error")
