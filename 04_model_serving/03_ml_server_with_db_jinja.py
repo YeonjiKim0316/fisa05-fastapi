@@ -30,7 +30,10 @@ DATABASE_URL = os.getenv('DATABASE_URL')
 # 머신러닝 모델 로드
 # # 모델 로드 - mlflow의 uri를 맨 위에 작성
 mlflow.set_tracking_uri("http://localhost:5000")
-model = mlflow.pyfunc.load_model(model_uri)
+
+prod_model_uri = 'models:/iris-classification-prod@champion'
+model = mlflow.sklearn.load_model(prod_model_uri)
+# model = mlflow.pyfunc.load_model(model_uri)
 # model = joblib.load("iris_model.joblib")
 
 # FastAPI 애플리케이션 인스턴스 생성
