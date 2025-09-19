@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {#  각 객체안에 있는 모든 값을 출력하는 함수  #}
+
+    {# macro 객체를 만들어서 jinja 덩어리를 한꺼번에 관리하고 재사용 #}
+    
+    {% macro item_list(items) %}
+    {% for item in items %}
+      <p>{{ item.id }} / {{ item.name }} / {{ item.description }} / {{ item.price }} / 
+        {% if item.on_offer %}
+            {{ item.on_offer }} - 재고 있음</p>
+        {% else %}
+            재고 없음
+        {% endif %}
+    {% endfor %}
+    {% endmacro %}
+
+    {{ item_list(items) }}
+
+    내용이 마구마구 있다가 <br> 
+    {{ item_list(items) }}
+    {{ item_list(items) }}
+    {{ item_list(items) }}
+    {{ item_list(items) }}
+
+</body>
+</html>

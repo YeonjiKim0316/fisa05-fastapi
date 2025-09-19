@@ -4,6 +4,7 @@
     <title>사용자 정보</title>
 </head>
 <body>
+
     {# 1. 주석 #}
     {# 사용자 역할에 따라 다른 메시지를 표시합니다. #}
 
@@ -22,7 +23,7 @@
     <p>user.items: {{ user.tasks }}</p>
     <ul>
         {% for item in user.tasks %}
-            <li>{{ item }}</li>
+            <li> 내용: {{ item }}</li>
         {% endfor %}
     </ul>
 
@@ -30,7 +31,7 @@
     <p>금액: {{ user.price|round(2) }}원</p>
     <p>사용자명(대문자): {{ user.username|upper }}</p>
 
-{% macro user_info(user) %}
+{% macro users(user) %}
   <div>
     <h2>{{ user.name }}</h2>
     <p>역할: {{ user.role }}</p>
@@ -38,8 +39,8 @@
 {% endmacro %}
 
 <!-- 매크로 사용 -->
-{{ user_info(user) }}
+{{ users(user) }}
 
-{{ user_info(user) }}
+{{ users(user) }}
 </body>
 </html>
