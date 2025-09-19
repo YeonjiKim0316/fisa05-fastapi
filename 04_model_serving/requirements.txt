@@ -8,3 +8,4 @@ uvicorn
 python-multipart # For using Form objects 
 joblib
 sqlalchemy
+python-dotenv

@@ -56,7 +56,7 @@ def predict(data: IrisInput, db: Session = Depends(get_db)):
         features = np.array([[data.sepal_length, data.sepal_width,
                 data.petal_length, data.petal_width]])
         prediction = model.predict(features)
-
+        prediction = int(prediction[0]) 
         new_pred = IrisPrediction(
             sepal_length=data.sepal_length, 
             sepal_width=data.sepal_width,
