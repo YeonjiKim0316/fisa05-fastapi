@@ -12,12 +12,7 @@ import logging
 from models import Base, IrisPrediction  # ORM 모델 가져오기
 ########################
 from fastapi.staticfiles import StaticFiles # 정적파일 경로 관리
-import mlflow.pyfunc
-
-model_name='iris-classification'
-model_version = 3
-model_uri = f"models:/{model_name}/{model_version}"
-
+import mlflow
 
 # 로깅 설정
 logging.basicConfig()
@@ -32,8 +27,8 @@ DATABASE_URL = os.getenv('DATABASE_URL')
 mlflow.set_tracking_uri("http://localhost:5000")
 
 prod_model_uri = 'models:/iris-classification-prod@champion'
-model = mlflow.sklearn.load_model(prod_model_uri)
-# model = mlflow.pyfunc.load_model(model_uri)
+# model = mlflow.sklearn.load_model(prod_model_uri)
+model = mlflow.pyfunc.load_model(prod_model_uri)
 # model = joblib.load("iris_model.joblib")
 
 # FastAPI 애플리케이션 인스턴스 생성
